@@ -8,18 +8,14 @@ configure_args="--with-config=user --with-mounthelperdir=/usr/bin
  --with-dracutdir=/usr/lib/dracut --with-tirpc"
 hostmakedepends="dracut libtool pkg-config python3 automake tar"
 makedepends="pam-devel zlib-devel libuuid-devel libblkid-devel libtirpc-devel attr-devel"
-depends="dkms>=2.2.0.3_9 perl python3 xbps-triggers>=0.121_1
+depends="zfs-zed>=${version}_${revision} python3
  libzfs>=${version}_${revision}"
-conf_files="/etc/zfs/zed.d/zed.rc /usr/src/zfs-${version}/META"
-short_desc="Z File System -- userland, pyzfs, and kernel modules (using DKMS)"
+short_desc="Z File System -- userland, pyzfs"
 maintainer="Toyam Cox <Vaelatern@voidlinux.org>"
 license="CDDL-1.0"
 homepage="https://openzfs.github.io/openzfs-docs/"
 distfiles="https://github.com/openzfs/zfs/releases/download/zfs-${version}/zfs-${version}.tar.gz"
 checksum=c92e02103ac5dd77bf01d7209eabdca55c7b3356aa747bb2357ec4222652a2a7
-# dkms must be before initramfs-regenerate to build modules before images
-triggers="dkms initramfs-regenerate"
-dkms_modules="zfs ${version}"
 
 provides="zfs-${version}_${revision}"
 
@@ -34,8 +30,6 @@ post_install() {
 	vlicense COPYRIGHT
 	vlicense LICENSE
 	vlicense NOTICE
-
-	vsv zed
 
 	make dist-gzip
 	vmkdir usr/src/
@@ -86,6 +80,19 @@ zfs-devel_package() {
 	}
 }
 
+zfs-dkms_package() {
+	short_desc="Z File System -- kernel module (dkms)"
+	depends="dkms>=2.2.0.3_9 xbps-triggers>=0.121_1"
+
+	# dkms must be before initramfs-regenerate to build modules before images
+	triggers="dkms initramfs-regenerate"
+	dkms_modules="zfs ${version}"
+
+	pkg_install() {
+		vmove usr/src
+	}
+}
+
 zfs-pam_package() {
 	depends="${sourcepkg}>=${version}_${revision}"
 	short_desc="Z File System -- PAM integration"
@@ -93,6 +100,37 @@ zfs-pam_package() {
 	replaces="zfs-pam-lts>=0"
 	pkg_install() {
 		vmove usr/lib/security/pam_zfs_key.so
+	}
+}
+
+zfs-test_package() {
+	short_desc="Z File System -- tests"
+	depends="zfs>=${version}_${revision}"
+	pkg_install() {
+		vmove usr/bin/raidz_test
+		vmove usr/bin/ztest
+		vmove usr/share/man/man1/raidz_test.1
+		vmove usr/share/man/man1/test-runner.1
+		vmove usr/share/man/man1/ztest.1
+		vmove usr/share/zfs/runfiles
+		vmove usr/share/zfs/test-runner
+		vmove usr/share/zfs/zfs-tests.sh
+		vmove usr/share/zfs/zimport.sh
+		vmove usr/share/zfs/zloop.sh
+	}
+}
+
+zfs-zed_package() {
+	short_desc="Z File System -- ZED"
+	depends="zfs>=${version}_${revision}"
+	conf_files="/etc/zfs/zed.d/zed.rc"
+	pkg_install() {
+		vsv zed
+
+		vmove etc/zfs/zed.d
+		vmove usr/bin/zed
+		vmove usr/libexec/zfs/zed.d
+		vmove usr/share/man/man8/zed.8
 	}
 }
 
