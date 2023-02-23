@@ -1,0 +1,80 @@
+pkgname=my-world
+version=1.0
+revision=3
+build_style=meta
+short_desc="my packages -- "
+maintainer="Robert"
+homepage="none"
+license="none"
+
+my-base_package() {
+	short_desc+="base"
+	depends="
+		base-system
+		bc
+		busybox
+		chrony
+		cpio
+		cronie
+		flatpak
+		fwupd
+		linux-firmware-network
+		intel-video-accel
+		lsof
+		lz4
+		plymouth
+		wget
+		wireguard-tools
+		xtools
+		xz
+		zfs-tools
+		zsh
+		zsh-completions
+		"
+}
+
+my-tools_package() {
+	short_desc+="tools"
+	depends="
+		git
+		htop
+		patch
+		powertop
+		screen
+		smartmontools
+		strace
+		tmux
+		tree
+		vim
+		"
+}
+
+my-kde_package() {
+	short_desc+="KDE"
+	depends="
+		kde5
+		kde5-baseapps
+		kdegraphics-thumbnailers
+		ffmpegthumbs
+		kdeconnect
+		okular
+		cantata
+		gwenview
+		keepassxc
+		ktorrent
+		spectacle
+		xdg-desktop-portal
+		yakuake
+		NetworkManager
+		NetworkManager-openconnect
+		"
+
+	# activity firefox
+	depends+=" kdialog qt5-tools xdpyinfo"
+
+	# xorg
+	depends+=" xf86-video-intel xorg-minimal"
+
+	# pipewire
+	depends+=" libspa-bluetooth pipewire wireplumber"
+}
