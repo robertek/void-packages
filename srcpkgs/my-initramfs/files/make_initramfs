@@ -1,0 +1,119 @@
+#!/bin/bash
+
+BOOT=/boot
+INITRAMFS="${BOOT}/initramfs"
+XZ_OPTS="--check=crc32 --lzma2=dict=512KiB"
+PLYMOUTH_INITRD="/usr/libexec/plymouth/plymouth-populate-initrd"
+INITRAMFS_SHARE="/usr/share/initramfs"
+
+if [ -z ${1} ]
+then
+	CREATE=1
+	INITRAM_DIR=`mktemp -d -t initramfs.XXX`
+else
+	CREATE=0
+	INITRAM_DIR=${1}
+fi
+
+DIRS="	sys
+	proc
+	dev
+	etc
+	newroot
+	usr/lib
+	usr/bin
+	"
+
+declare -A LINKS=(
+	[bin]="usr/bin"
+	[sbin]="usr/bin"
+	[usr/sbin]="bin"
+	[lib]="usr/lib"
+	[lib64]="usr/lib"
+	[usr/lib64]="lib"
+)
+
+BINS="	/sbin/zpool
+	/sbin/mount.zfs
+	/sbin/zfs
+	/bin/busybox
+	"
+
+EXTRA=" /etc/hostid
+	"
+
+echo "composing initramfs in ${INITRAM_DIR}"
+
+if [ ${CREATE} == 0 ]
+then
+	echo "Remove old initramfs in ${INITRAM_DIR}? (y/n)"
+	read ANS
+	if [ ${ANS} == "y" ]
+	then
+		rm -r ${INITRAM_DIR}
+	fi
+fi
+
+for dir in ${DIRS}
+do
+	mkdir -p ${INITRAM_DIR}/${dir}
+done
+
+for link in ${!LINKS[@]}
+do
+	ln -s ${LINKS[$link]} ${INITRAM_DIR}/${link}
+done
+
+declare -A LIBS=()
+
+for bin in ${BINS}
+do
+	echo " resolving ${bin}"
+	cp ${bin} ${INITRAM_DIR}/${bin}
+
+	for lib in `ldd ${bin} | grep -v linux-vdso.so | sed 's/\t*\(.*\) =>.*/\1/' | sed 's/\/.*\///'`
+	do
+		LIBS[/lib/${lib}]=0;
+	done
+done
+
+for lib in ${!LIBS[@]}
+do
+	cp -L ${lib} ${INITRAM_DIR}/${lib}
+done
+
+# add /dev/console
+mknod ${INITRAM_DIR}/dev/console c 5 1 2>/dev/null
+
+for bin in ${EXTRA}
+do
+	[ -e ${bin} ] || continue
+	mkdir -p ${INITRAM_DIR}/`dirname ${bin}`
+	cp -L ${bin} ${INITRAM_DIR}/${bin}
+done
+
+# populate plymouth if available
+if [ -x ${PLYMOUTH_INITRD} ]
+then
+	${PLYMOUTH_INITRD} -t ${INITRAM_DIR}
+fi
+
+# init
+cp ${INITRAMFS_SHARE}/init.tpl ${INITRAM_DIR}/init
+chmod +x ${INITRAM_DIR}/init
+
+cp /etc/zfs/*.cache ${INITRAM_DIR}/etc/
+
+if [ $CREATE == 1 ]
+then
+	# backup
+	echo "backing up ${INITRAMFS}"
+	mv ${INITRAMFS} ${INITRAMFS}.old
+
+	# create
+	echo "creating new ${INITRAMFS}"
+	cd ${INITRAM_DIR}
+	find . | cpio --quiet -o -H newc | xz ${XZ_OPTS} > ${INITRAMFS}
+	cd
+	rm -r ${INITRAM_DIR}
+fi
