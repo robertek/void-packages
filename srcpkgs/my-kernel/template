@@ -1,0 +1,82 @@
+pkgname=my-kernel
+version=6.1.13
+_zfs_version=2.1.9
+revision=1
+
+license="GPL-2.0-only"
+maintainer="Robert David"
+short_desc="Basic kernel with built-in ZFS support"
+homepage="https://www.kernel.org"
+
+distfiles="${KERNEL_SITE}/kernel/v${version%%.*}.x/linux-${version%.*}.tar.xz"
+distfiles+=" ${KERNEL_SITE}/kernel/v${version%%.*}.x/patch-${version}.xz"
+distfiles+=" https://github.com/openzfs/zfs/releases/download/zfs-${_zfs_version}/zfs-${_zfs_version}.tar.gz"
+skip_extraction="patch-${version}.xz"
+
+checksum="2ca1f17051a430f6fed1196e4952717507171acfd97d96577212502703b25deb
+ 5ae5551eb50a9392f02ec5cc0c7f07fe7d98f9e80bc930a4904eb47b6c0217ec
+ 6b172cdf2eb54e17fcd68f900fab33c1430c5c59848fa46fab83614922fe50f6"
+
+archs="x86_64*"
+
+nodebug=yes
+nostrip=yes
+noverifyrdeps=yes
+noshlibprovides=yes
+preserve=yes
+
+hostmakedepends="tar elfutils-devel gmp-devel kmod libmpc-devel
+ openssl-devel perl uboot-mkimage cpio pahole python3 zstd base-devel
+ pam-devel zlib-devel libuuid-devel libblkid-devel libtirpc-devel attr-devel
+ linux-firmware-intel linux-firmware-network lz4"
+
+_kernver="${version}_${revision}"
+triggers="kernel-hooks"
+kernel_hooks_version="${_kernver}"
+
+_linux_path="${XBPS_BUILDDIR}/${pkgname}-${version}/linux-${version%.*}"
+_zfs_path="${XBPS_BUILDDIR}/${pkgname}-${version}/zfs-${_zfs_version}"
+
+pre_patch() {
+	cd ${_linux_path}/
+	xzcat $XBPS_SRCDISTDIR/$pkgname-$version/patch-${version}.xz | patch -sNp1 -F0
+}
+
+do_configure() {
+	cd ${_linux_path}/
+	cp -f ${FILESDIR}/config-base .config
+	make ${makejobs} olddefconfig
+	make ${makejobs} prepare
+
+	cd ${_zfs_path}
+	./autogen.sh
+	./configure --with-linux=${_linux_path} --with-linux-obj=${_linux_path} --enable-linux-builtin
+	./copy-builtin ${_linux_path}
+
+	cd ${_linux_path}
+	cp -f ${FILESDIR}/config-base .config
+	make ${makejobs} olddefconfig
+
+	# Always use our revision to CONFIG_LOCALVERSION to match our pkg version.
+	sed -i -e "s|^\(CONFIG_LOCALVERSION=\).*|\1\"_${revision}\"|" .config
+}
+
+do_build() {
+	cd ${_linux_path}
+	export LDFLAGS=
+	make ${makejobs} bzImage modules
+}
+
+do_install() {
+	vmkdir usr/lib
+	ln -s usr/lib ${DESTDIR}
+
+	cd ${_linux_path}
+	make ${makejobs} INSTALL_MOD_PATH=${DESTDIR} modules_install
+
+	rm -f ${DESTDIR}/lib
+
+	vinstall .config 644 boot config-${_kernver}
+	vinstall System.map 644 boot System.map-${_kernver}
+	vinstall arch/x86/boot/bzImage 644 boot vmlinuz-${_kernver}
+}
