@@ -1,6 +1,6 @@
 pkgname=my-world
 version=1.0
-revision=3
+revision=4
 build_style=meta
 short_desc="my packages -- "
 maintainer="Robert"
@@ -11,10 +11,8 @@ my-base_package() {
 	short_desc+="base"
 	depends="
 		base-system
-		bc
 		busybox
 		chrony
-		cpio
 		cronie
 		flatpak
 		fwupd
@@ -22,6 +20,7 @@ my-base_package() {
 		intel-video-accel
 		lsof
 		lz4
+		my-initramfs
 		plymouth
 		wget
 		wireguard-tools
