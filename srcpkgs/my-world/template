@@ -1,6 +1,6 @@
 pkgname=my-world
 version=1.0
-revision=4
+revision=5
 build_style=meta
 short_desc="my packages -- "
 maintainer="Robert"
@@ -22,11 +22,14 @@ my-base_package() {
 		lz4
 		my-initramfs
 		plymouth
+		socklog-void
+		void-repo-debug
 		wget
 		wireguard-tools
 		xtools
 		xz
-		zfs-tools
+		zfs
+		znapzend
 		zsh
 		zsh-completions
 		"
@@ -35,7 +38,9 @@ my-base_package() {
 my-tools_package() {
 	short_desc+="tools"
 	depends="
+		bpftrace
 		git
+		github-cli
 		htop
 		patch
 		powertop
@@ -63,6 +68,7 @@ my-kde_package() {
 		ktorrent
 		spectacle
 		xdg-desktop-portal
+		xdg-desktop-portal-gtk
 		yakuake
 		NetworkManager
 		NetworkManager-openconnect
