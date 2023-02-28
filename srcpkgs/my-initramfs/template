@@ -1,13 +1,13 @@
 pkgname=my-initramfs
 version=1.0
-revision=1
+revision=2
 
 license="BSD-3-Clause"
 homepage="none"
-maintainer="Robert David"
+maintainer="Robert David <robert.david@posteo.net>"
 short_desc="Standalone initramfs with zfs and plymouth"
 
-depends="zfs-tools cpio xz busybox plymouth"
+depends="zfs cpio xz busybox plymouth"
 
 do_install() {
 	vmkdir usr/bin
