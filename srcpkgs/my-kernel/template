@@ -1,7 +1,7 @@
 pkgname=my-kernel
 version=6.1.13
 _zfs_version=2.1.9
-revision=1
+revision=2
 
 license="GPL-2.0-only"
 maintainer="Robert David"
@@ -28,7 +28,7 @@ preserve=yes
 hostmakedepends="tar elfutils-devel gmp-devel kmod libmpc-devel
  openssl-devel perl uboot-mkimage cpio pahole python3 zstd base-devel
  pam-devel zlib-devel libuuid-devel libblkid-devel libtirpc-devel attr-devel
- linux-firmware-intel linux-firmware-network lz4"
+ linux-firmware-intel linux-firmware-network lz4 ncurses-devel"
 
 _kernver="${version}_${revision}"
 triggers="kernel-hooks"
