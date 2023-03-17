@@ -1,5 +1,5 @@
 pkgname=my-kernel
-version=6.1.13
+version=6.1.19
 _zfs_version=2.1.9
 revision=2
 
@@ -14,7 +14,7 @@ distfiles+=" https://github.com/openzfs/zfs/releases/download/zfs-${_zfs_version
 skip_extraction="patch-${version}.xz"
 
 checksum="2ca1f17051a430f6fed1196e4952717507171acfd97d96577212502703b25deb
- 5ae5551eb50a9392f02ec5cc0c7f07fe7d98f9e80bc930a4904eb47b6c0217ec
+ 1ed0af6ea1e8b6aede2fb72aabb750d4a2e21b284b851663ad81f8a797be649f
  6b172cdf2eb54e17fcd68f900fab33c1430c5c59848fa46fab83614922fe50f6"
 
 archs="x86_64*"
@@ -28,7 +28,7 @@ preserve=yes
 hostmakedepends="tar elfutils-devel gmp-devel kmod libmpc-devel
  openssl-devel perl uboot-mkimage cpio pahole python3 zstd base-devel
  pam-devel zlib-devel libuuid-devel libblkid-devel libtirpc-devel attr-devel
- linux-firmware-intel linux-firmware-network lz4 ncurses-devel"
+ linux-firmware-intel lz4 ncurses-devel crda"
 
 _kernver="${version}_${revision}"
 triggers="kernel-hooks"

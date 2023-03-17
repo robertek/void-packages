@@ -487,7 +487,7 @@ CONFIG_MISC_RTSX_PCI=y
 
 # Firmware loader
 CONFIG_FW_LOADER=y
-CONFIG_EXTRA_FIRMWARE="i915/skl_dmc_ver1_27.bin iwlwifi-8000C-22.ucode intel/ibt-11-5.sfi intel/ibt-11-5.ddc"
+CONFIG_EXTRA_FIRMWARE="i915/skl_dmc_ver1_27.bin i915/kbl_dmc_ver1_04.bin regulatory.db regulatory.db.p7s"
 CONFIG_EXTRA_FIRMWARE_DIR="/lib/firmware"
 
 # Protocols
