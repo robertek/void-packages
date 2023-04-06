@@ -43,7 +43,7 @@ then
 fi
 
 # zfs
-ROOT=`$CAT /proc/cmdline | $TR " " "\n" | $GREP "root=zfs" | $CUT -d"=" -f3`
+ROOT=`$CAT /proc/cmdline | $TR " " "\n" | $GREP "root=zfs" | $CUT -d":" -f2`
 RPOOL=`$CAT /proc/cmdline | $TR " " "\n" | $GREP "rpool=" | $CUT -d"=" -f2`
 
 [[ -z $RPOOL ]] && RPOOL=`$ECHO $ROOT | $CUT -d"/" -f1`
