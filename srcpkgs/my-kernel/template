@@ -1,6 +1,6 @@
 pkgname=my-kernel
-version=6.1.21
-_zfs_version=2.1.9
+version=6.1.38
+_zfs_version=2.1.12
 revision=1
 
 license="GPL-2.0-only"
@@ -14,8 +14,8 @@ distfiles+=" https://github.com/openzfs/zfs/releases/download/zfs-${_zfs_version
 skip_extraction="patch-${version}.xz"
 
 checksum="2ca1f17051a430f6fed1196e4952717507171acfd97d96577212502703b25deb
- b29f03f08d91cf885e165394ad2e67c81eb3d393b9ca53fda848775b6f6ccfe2
- 6b172cdf2eb54e17fcd68f900fab33c1430c5c59848fa46fab83614922fe50f6"
+ 9f5fcfa5092315e8a736539ce341df48a2320f952a38ec184740d5561e471e63
+ 64daa26aed3e12c931f6f4413d7527c4ebdb8da35416b356152b5f9fdd4c6e6d"
 
 archs="x86_64*"
 
