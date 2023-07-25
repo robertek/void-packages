@@ -33,7 +33,6 @@ my-base_package() {
 		wget
 		wireguard-tools
 		xtools
-		xz
 		zfs
 		zsh
 		zsh-completions
@@ -45,7 +44,6 @@ my-tools_package() {
 	depends="
 		bat
 		bind-utils
-		bpftrace
 		ctags
 		ffmpeg
 		fzf
