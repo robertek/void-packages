@@ -1,6 +1,6 @@
 pkgname=my-world
 version=1.0
-revision=5
+revision=6
 build_style=meta
 short_desc="my packages -- "
 maintainer="Robert"
@@ -21,15 +21,20 @@ my-base_package() {
 		lsof
 		lz4
 		my-initramfs
+		net-tools
 		plymouth
+		rsync
 		socklog-void
+		starship
 		void-repo-debug
+		void-repo-multilib
+		void-repo-nonfree
+		vsv
 		wget
 		wireguard-tools
 		xtools
 		xz
 		zfs
-		znapzend
 		zsh
 		zsh-completions
 		"
@@ -38,17 +43,28 @@ my-base_package() {
 my-tools_package() {
 	short_desc+="tools"
 	depends="
+		bat
+		bind-utils
 		bpftrace
+		ctags
+		ffmpeg
+		fzf
 		git
 		github-cli
 		htop
+		imapfilter
+		lsd
+		netcat
+		nmap
 		patch
 		powertop
+		ripgrep
 		screen
 		smartmontools
 		strace
 		tmux
 		tree
+		unzip
 		vim
 		"
 }
@@ -67,6 +83,7 @@ my-kde_package() {
 		keepassxc
 		ktorrent
 		spectacle
+		vlc
 		xdg-desktop-portal
 		xdg-desktop-portal-gtk
 		yakuake
