@@ -1,6 +1,6 @@
 pkgname=my-world
-version=1.0
-revision=6
+version=1.1
+revision=1
 build_style=meta
 short_desc="my packages -- "
 maintainer="Robert"
@@ -44,26 +44,52 @@ my-tools_package() {
 	depends="
 		bat
 		bind-utils
-		ctags
 		ffmpeg
 		fzf
 		git
-		github-cli
 		htop
+		ImageMagick
 		imapfilter
 		lsd
 		netcat
 		nmap
-		patch
 		powertop
 		ripgrep
 		screen
 		smartmontools
-		strace
 		tmux
 		tree
 		unzip
 		vim
+		yt-dlp
+		"
+}
+
+my-dev_package() {
+	short_desc+="dev"
+	depends="
+		bpftrace
+		ctags
+		gcc
+		gdb
+		github-cli
+		hunspell
+		hunspell-en_US
+		patch
+		ripgrep
+		strace
+		"
+}
+
+my-print_package() {
+	short_desc+="printing"
+	depends="
+		brother-brlaser
+		brother-dcp9020cdw-cupswrapper
+		cups-filters
+		foomatic-db
+		foomatic-db-nonfree
+		print-manager
 		"
 }
 
@@ -76,12 +102,10 @@ my-kde_package() {
 		ffmpegthumbs
 		kdeconnect
 		okular
-		cantata
 		gwenview
 		keepassxc
 		ktorrent
 		spectacle
-		vlc
 		xdg-desktop-portal
 		xdg-desktop-portal-gtk
 		yakuake
