@@ -1,5 +1,5 @@
 pkgname=my-world
-version=1.1
+version=2.1
 revision=1
 build_style=meta
 short_desc="my packages -- "
@@ -21,6 +21,7 @@ my-base_package() {
 		lsof
 		lz4
 		my-initramfs
+		my-kernel
 		net-tools
 		plymouth
 		rsync
