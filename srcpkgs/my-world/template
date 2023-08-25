@@ -1,5 +1,5 @@
 pkgname=my-world
-version=2.1
+version=2.2
 revision=1
 build_style=meta
 short_desc="my packages -- "
@@ -27,6 +27,7 @@ my-base_package() {
 		rsync
 		socklog-void
 		starship
+		vim
 		void-repo-debug
 		void-repo-multilib
 		void-repo-nonfree
@@ -61,7 +62,6 @@ my-tools_package() {
 		tmux
 		tree
 		unzip
-		vim
 		yt-dlp
 		"
 }
@@ -96,22 +96,28 @@ my-print_package() {
 
 my-kde_package() {
 	short_desc+="KDE"
+
+	# base
 	depends="
 		kde5
 		kde5-baseapps
 		kdegraphics-thumbnailers
 		ffmpegthumbs
-		kdeconnect
+		xdg-desktop-portal
+		xdg-desktop-portal-gtk
+		NetworkManager
+		NetworkManager-openconnect
+		"
+
+	# apps
+	depends+="
 		okular
 		gwenview
+		kdeconnect
 		keepassxc
 		ktorrent
 		spectacle
-		xdg-desktop-portal
-		xdg-desktop-portal-gtk
 		yakuake
-		NetworkManager
-		NetworkManager-openconnect
 		"
 
 	# activity firefox
