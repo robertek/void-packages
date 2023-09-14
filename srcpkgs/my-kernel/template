@@ -1,5 +1,5 @@
 pkgname=my-kernel
-version=6.1.46
+version=6.1.53
 _zfs_version=2.1.12
 revision=1
 
@@ -8,14 +8,20 @@ maintainer="Robert David"
 short_desc="Basic kernel with built-in ZFS support"
 homepage="https://www.kernel.org"
 
+# base release
 distfiles="${KERNEL_SITE}/kernel/v${version%%.*}.x/linux-${version%.*}.tar.xz"
+# patch release
 distfiles+=" ${KERNEL_SITE}/kernel/v${version%%.*}.x/patch-${version}.xz"
+# zfs
 distfiles+=" https://github.com/openzfs/zfs/releases/download/zfs-${_zfs_version}/zfs-${_zfs_version}.tar.gz"
 skip_extraction="patch-${version}.xz"
 
-checksum="2ca1f17051a430f6fed1196e4952717507171acfd97d96577212502703b25deb
- 195fbb9f623818a26bd08a1b17f0e2f28273eb3c168967c280ce5ae254cdbf3b
- 64daa26aed3e12c931f6f4413d7527c4ebdb8da35416b356152b5f9fdd4c6e6d"
+# base relese
+checksum="2ca1f17051a430f6fed1196e4952717507171acfd97d96577212502703b25deb"
+# patch release
+checksum+=" 5e4f831923a89745727379b9ff52b16cef36ede795d9017c0785232b5fc7511c"
+# zfs
+checksum+=" 64daa26aed3e12c931f6f4413d7527c4ebdb8da35416b356152b5f9fdd4c6e6d"
 
 archs="x86_64*"
 
