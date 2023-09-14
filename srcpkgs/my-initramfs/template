@@ -1,18 +1,30 @@
 pkgname=my-initramfs
-version=1.0
-revision=3
+version=1.1
+revision=1
 
 license="BSD-3-Clause"
 homepage="none"
 maintainer="Robert David <robert.david@posteo.net>"
 short_desc="Standalone initramfs with zfs and plymouth"
 
+alternatives="
+ initramfs:/etc/kernel.d/post-install/20-initramfs:/usr/libexec/$pkgname/kernel-hook-postinst
+ initramfs:/etc/kernel.d/post-remove/20-initramfs:/usr/libexec/$pkgname/kernel-hook-postrm
+"
 depends="zfs cpio xz busybox plymouth"
 
 do_install() {
+	# kernel hooks.
+	vmkdir usr/libexec/$pkgname
+	vinstall ${FILESDIR}/kernel-hook-postinst 755 usr/libexec/$pkgname
+	vinstall ${FILESDIR}/kernel-hook-postrm 755 usr/libexec/$pkgname
+
+	# generator
 	vmkdir usr/bin
+	vinstall ${FILESDIR}/make_initramfs 755 usr/bin/
+
+	# template
 	vmkdir usr/share/initramfs
 	vinstall ${FILESDIR}/init.tpl 644 usr/share/initramfs/
-	vinstall ${FILESDIR}/make_initramfs 755 usr/bin/
 }
 
