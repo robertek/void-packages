@@ -52,7 +52,7 @@ my-tools_package() {
 		htop
 		ImageMagick
 		imapfilter
-		lsd
+		eza
 		netcat
 		nmap
 		nodejs
