@@ -1,5 +1,5 @@
 pkgname=my-world
-version=2.3
+version=2.4
 revision=1
 build_style=meta
 short_desc="my packages -- "
@@ -80,6 +80,9 @@ my-dev_package() {
 		patch
 		strace
 		"
+
+	# rust ssl bindings
+	depends+=" openssl-devel pkg-config"
 }
 
 my-print_package() {
