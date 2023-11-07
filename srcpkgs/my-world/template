@@ -1,5 +1,5 @@
 pkgname=my-world
-version=2.4
+version=2.5
 revision=1
 build_style=meta
 short_desc="my packages -- "
@@ -27,6 +27,7 @@ my-base_package() {
 		rsync
 		socklog-void
 		starship
+		tlp
 		vim
 		void-repo-debug
 		void-repo-multilib
@@ -78,9 +79,12 @@ my-dev_package() {
 		hunspell
 		hunspell-en_US
 		patch
+		perf
 		strace
 		"
 
+	# rust
+	depends+=" rust rust-analyzer cargo"
 	# rust ssl bindings
 	depends+=" openssl-devel pkg-config"
 }
@@ -107,7 +111,6 @@ my-kde_package() {
 		kdegraphics-thumbnailers
 		ffmpegthumbs
 		xdg-desktop-portal
-		xdg-desktop-portal-gtk
 		NetworkManager
 		NetworkManager-openconnect
 		plasma-browser-integration
