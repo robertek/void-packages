@@ -1,5 +1,5 @@
 pkgname=my-world
-version=2.5
+version=2.6
 revision=1
 build_style=meta
 short_desc="my packages -- "
@@ -29,13 +29,11 @@ my-base_package() {
 		starship
 		tlp
 		vim
-		void-repo-debug
 		void-repo-multilib
 		void-repo-nonfree
 		vsv
 		wget
 		wireguard-tools
-		xtools
 		zfs
 		zsh
 		zsh-completions
@@ -81,12 +79,17 @@ my-dev_package() {
 		patch
 		perf
 		strace
+		void-repo-debug
+		xtools
 		"
 
 	# rust
 	depends+=" rust rust-analyzer cargo"
 	# rust ssl bindings
 	depends+=" openssl-devel pkg-config"
+
+	# openwrt builder
+	depends+=" python3-distutils-extra"
 }
 
 my-print_package() {
