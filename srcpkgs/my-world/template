@@ -1,5 +1,5 @@
 pkgname=my-world
-version=2.6
+version=2.7
 revision=1
 build_style=meta
 short_desc="my packages -- "
@@ -95,8 +95,7 @@ my-dev_package() {
 my-print_package() {
 	short_desc+="printing"
 	depends="
-		brother-brlaser
-		brother-dcp9020cdw-cupswrapper
+		hplip
 		cups-filters
 		foomatic-db
 		foomatic-db-nonfree
