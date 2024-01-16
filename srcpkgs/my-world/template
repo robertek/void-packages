@@ -1,5 +1,5 @@
 pkgname=my-world
-version=2.9
+version=2.11
 revision=1
 build_style=meta
 short_desc="my packages -- "
@@ -139,6 +139,9 @@ my-kde_package() {
 
 	# activity firefox
 	depends+=" kdialog qt5-tools xdpyinfo"
+
+	# xorg (sddm)
+	depends+=" xf86-video-intel xorg-minimal"
 
 	# pipewire
 	depends+=" libspa-bluetooth pipewire wireplumber"
