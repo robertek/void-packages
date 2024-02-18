@@ -1,5 +1,5 @@
 pkgname=my-world
-version=2.11
+version=2.12
 revision=1
 build_style=meta
 short_desc="my packages -- "
@@ -48,10 +48,12 @@ my-tools_package() {
 		htop
 		ImageMagick
 		imapfilter
+		jq
 		eza
 		netcat
 		nmap
 		nodejs
+		picocom
 		powertop
 		ripgrep
 		rsync
@@ -60,6 +62,7 @@ my-tools_package() {
 		tmux
 		tree
 		unzip
+		xlsclients
 		yt-dlp
 		"
 }
