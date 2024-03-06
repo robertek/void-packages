@@ -1,5 +1,5 @@
 pkgname=my-world
-version=2.12
+version=2.13
 revision=1
 build_style=meta
 short_desc="my packages -- "
@@ -85,7 +85,14 @@ my-dev_package() {
 		"
 
 	# rust
-	depends+=" rust rust-analyzer cargo"
+	depends+="
+		rust
+		rust-analyzer
+		cargo
+		cargo-deny
+		cargo-edit
+		cargo-outdated
+		"
 	# rust ssl bindings
 	depends+=" openssl-devel pkg-config"
 
