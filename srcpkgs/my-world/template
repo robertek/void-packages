@@ -1,5 +1,5 @@
 pkgname=my-world
-version=2.14
+version=2.15
 revision=1
 build_style=meta
 short_desc="my packages -- "
@@ -43,6 +43,7 @@ my-tools_package() {
 		bat
 		bind-utils
 		delta
+		fd
 		ffmpeg
 		fzf
 		git
@@ -91,8 +92,6 @@ my-dev_package() {
 		rust-analyzer
 		cargo
 		cargo-deny
-		cargo-edit
-		cargo-outdated
 		"
 	# rust ssl bindings
 	depends+=" openssl-devel pkg-config"
@@ -141,6 +140,7 @@ my-kde_package() {
 	depends+="
 		okular
 		gwenview
+		kcalc
 		kdeconnect
 		keepassxc
 		ktorrent
