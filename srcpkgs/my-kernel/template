@@ -1,5 +1,5 @@
 pkgname=my-kernel
-version=6.1.82
+version=6.1.87
 _zfs_version=2.2.3
 revision=1
 
@@ -19,7 +19,7 @@ skip_extraction="patch-${version}.xz"
 # base relese
 checksum="2ca1f17051a430f6fed1196e4952717507171acfd97d96577212502703b25deb"
 # patch release
-checksum+=" 697f343a8c1e655b6f2e89dd8c2703e2bfd31384e9cf5e4d1edbc04120883ca2"
+checksum+=" a3cd1d8f26701580362898d49e8e054663c53303dc86ae7ad28268463de6d52b"
 # zfs
 checksum+=" 30a512f34ec5c841b8b2b32cc9c1a03fd49391b26c9164d3fb30573fb5d81ac3"
 
