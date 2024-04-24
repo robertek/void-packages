@@ -1,5 +1,5 @@
 pkgname=my-kernel
-version=6.1.87
+version=6.6.28
 _zfs_version=2.2.3
 revision=1
 
@@ -17,9 +17,9 @@ distfiles+=" https://github.com/openzfs/zfs/releases/download/zfs-${_zfs_version
 skip_extraction="patch-${version}.xz"
 
 # base relese
-checksum="2ca1f17051a430f6fed1196e4952717507171acfd97d96577212502703b25deb"
+checksum="d926a06c63dd8ac7df3f86ee1ffc2ce2a3b81a2d168484e76b5b389aba8e56d0"
 # patch release
-checksum+=" a3cd1d8f26701580362898d49e8e054663c53303dc86ae7ad28268463de6d52b"
+checksum+=" 2595a8d1333c1898afdb6c83bd442ce28033cf683da5bef7faf9b48af76de350"
 # zfs
 checksum+=" 30a512f34ec5c841b8b2b32cc9c1a03fd49391b26c9164d3fb30573fb5d81ac3"
 
