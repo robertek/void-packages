@@ -658,6 +658,9 @@ CONFIG_SND_SPI=y
 CONFIG_INTEL_IOMMU=y
 CONFIG_IRQ_REMAP=y
 
+# yoga switch
+LENOVO_YMC=m
+
 #
 # Graphics support
 #
