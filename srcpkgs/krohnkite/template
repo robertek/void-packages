@@ -1,0 +1,24 @@
+pkgname=krohnkite
+version=0.9.5
+revision=1
+
+license="MIT"
+maintainer="Robert David <<robert.david@posteo.net>>"
+short_desc="A dynamic tiling extension for KWin"
+homepage="https://github.com/anametologin/krohnkite"
+
+distfiles="${homepage}/archive/refs/tags/${version}.tar.gz"
+checksum="07a71f0bc45765f7eb5b41439aabf8a5c9c6353a47a884af624d6d1d1cf2e7ad"
+
+build_style=gnu-makefile
+hostmakedepends="nodejs"
+depends="kwin"
+
+do_install() {
+	vmkdir usr/share/kwin/scripts/${pkgname}
+
+	vcopy pkg/contents usr/share/kwin/scripts/${pkgname}
+	vcopy pkg/metadata.json usr/share/kwin/scripts/${pkgname}
+
+	vlicense LICENSE
+}
