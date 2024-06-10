@@ -1,5 +1,5 @@
 pkgname=my-world
-version=2.15
+version=2.16
 revision=1
 build_style=meta
 short_desc="my packages -- "
@@ -17,14 +17,12 @@ my-base_package() {
 		fwupd
 		linux-firmware-network
 		intel-video-accel
-		lsof
 		lz4
 		my-initramfs
 		my-kernel
 		net-tools
 		plymouth
 		socklog-void
-		starship
 		tlp
 		vim
 		void-repo-nonfree
@@ -32,6 +30,11 @@ my-base_package() {
 		wget
 		wireguard-tools
 		zfs
+		"
+
+	# shell
+	depends+="
+		starship
 		zsh
 		zsh-completions
 		"
@@ -43,6 +46,8 @@ my-tools_package() {
 		bat
 		bind-utils
 		delta
+		dmidecode
+		eza
 		fd
 		ffmpeg
 		fzf
@@ -51,7 +56,7 @@ my-tools_package() {
 		ImageMagick
 		imapfilter
 		jq
-		eza
+		lsof
 		netcat
 		nmap
 		nodejs
@@ -86,15 +91,11 @@ my-dev_package() {
 		xtools
 		"
 
-	# rust
-	depends+="
-		rust
-		rust-analyzer
-		cargo
-		cargo-deny
-		"
 	# rust ssl bindings
 	depends+=" openssl-devel pkg-config"
+
+	# rust udev bindings
+	depends+=" eudev-libudev-devel"
 
 	# openwrt builder
 	depends+=" python3-distutils-extra"
@@ -126,6 +127,9 @@ my-kde_package() {
 		plasma-browser-integration
 		"
 
+	# tiling
+	depends+=" krohnkite"
+
 	# flatpak
 	depends+="
 		flatpak
@@ -134,7 +138,6 @@ my-kde_package() {
 		xdg-desktop-portal-gtk
 		xdg-desktop-portal-kde
 		"
-
 
 	# apps
 	depends+="
