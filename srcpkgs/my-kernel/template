@@ -1,7 +1,7 @@
 pkgname=my-kernel
 version=6.6.32
 _zfs_version=2.2.4
-revision=1
+revision=2
 
 license="GPL-2.0-only"
 maintainer="Robert David"
@@ -78,11 +78,21 @@ do_install() {
 	ln -s usr/lib ${DESTDIR}
 
 	cd ${_linux_path}
-	make ${makejobs} INSTALL_MOD_PATH=${DESTDIR} modules_install
-
-	rm -f ${DESTDIR}/lib
 
 	vinstall .config 644 boot config-${_kernver}
 	vinstall System.map 644 boot System.map-${_kernver}
 	vinstall arch/x86/boot/bzImage 644 boot vmlinuz-${_kernver}
+
+	make ${makejobs} INSTALL_MOD_PATH=${DESTDIR} modules_install
+
+	# Extract debugging symbols
+	msg_normal "$pkgver: striping debug info\n"
+	(
+	cd ${DESTDIR}
+	find ./ -name '*.ko' -print0 | \
+		xargs -0r -n1 -P ${XBPS_MAKEJOBS} /usr/bin/$STRIP --strip-debug
+	)
+	depmod -b ${DESTDIR}/usr -F System.map ${_kernver}
+
+	rm -f ${DESTDIR}/lib
 }
