@@ -1,5 +1,5 @@
 pkgname=my-world
-version=2.16
+version=2.17
 revision=1
 build_style=meta
 short_desc="my packages -- "
@@ -11,7 +11,6 @@ my-base_package() {
 	short_desc+="base"
 	depends="
 		base-system
-		busybox
 		chrony
 		cronie
 		fwupd
@@ -20,16 +19,22 @@ my-base_package() {
 		lz4
 		my-initramfs
 		my-kernel
-		net-tools
 		plymouth
 		socklog-void
 		tlp
 		vim
 		void-repo-nonfree
 		vsv
-		wget
-		wireguard-tools
 		zfs
+		zstd
+		"
+
+	# networking
+	depends+="
+		net-tools
+		NetworkManager
+		NetworkManager-openconnect
+		wireguard-tools
 		"
 
 	# shell
@@ -44,7 +49,6 @@ my-tools_package() {
 	short_desc+="tools"
 	depends="
 		bat
-		bind-utils
 		delta
 		dmidecode
 		eza
@@ -54,23 +58,28 @@ my-tools_package() {
 		git
 		htop
 		ImageMagick
-		imapfilter
 		jq
 		lsof
-		netcat
-		nmap
 		nodejs
 		picocom
 		powertop
 		ripgrep
-		rsync
 		screen
 		smartmontools
 		tmux
-		tree
 		unzip
 		xlsclients
 		yt-dlp
+		"
+
+	# network tools
+	depends+="
+		bind-utils
+		imapfilter
+		netcat
+		nmap
+		rsync
+		wget
 		"
 }
 
@@ -122,8 +131,6 @@ my-kde_package() {
 		kdegraphics-thumbnailers
 		kimageformats
 		ffmpegthumbs
-		NetworkManager
-		NetworkManager-openconnect
 		plasma-browser-integration
 		"
 
@@ -150,9 +157,6 @@ my-kde_package() {
 		spectacle
 		yakuake
 		"
-
-	# activity firefox
-	depends+=" kdialog qt5-tools xdpyinfo"
 
 	# xorg (sddm)
 	depends+=" xf86-video-intel xorg-minimal"
