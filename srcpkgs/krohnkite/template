@@ -1,5 +1,5 @@
 pkgname=krohnkite
-version=0.9.5
+version=0.9.7
 revision=1
 
 license="MIT"
@@ -8,7 +8,7 @@ short_desc="A dynamic tiling extension for KWin"
 homepage="https://github.com/anametologin/krohnkite"
 
 distfiles="${homepage}/archive/refs/tags/${version}.tar.gz"
-checksum="07a71f0bc45765f7eb5b41439aabf8a5c9c6353a47a884af624d6d1d1cf2e7ad"
+checksum="bf0c4f054cca37a6220ea6b550469fea33410c647519e56f7c8f024996f53057"
 
 build_style=gnu-makefile
 hostmakedepends="nodejs"
