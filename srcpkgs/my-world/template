@@ -1,5 +1,5 @@
 pkgname=my-world
-version=2.18
+version=2.19
 revision=1
 build_style=meta
 short_desc="my packages -- "
@@ -31,6 +31,7 @@ my-base_package() {
 
 	# networking
 	depends+="
+		bluez
 		net-tools
 		NetworkManager
 		NetworkManager-openconnect
