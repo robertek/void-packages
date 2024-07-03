@@ -1,5 +1,5 @@
 pkgname=my-world
-version=2.17
+version=2.18
 revision=1
 build_style=meta
 short_desc="my packages -- "
@@ -126,11 +126,13 @@ my-kde_package() {
 
 	# base
 	depends="
+		breeze
+		ffmpegthumbs
 		kde5
 		kde5-baseapps
 		kdegraphics-thumbnailers
 		kimageformats
-		ffmpegthumbs
+		nerd-fonts-symbols-ttf
 		plasma-browser-integration
 		"
 
