@@ -1,0 +1,56 @@
+name: Build my packages
+
+on:
+  push:
+    branches:
+      - 'my-pkgs'
+    paths:
+      - 'srcpkgs/**'
+
+jobs:
+  build:
+    name: Build my packages
+    runs-on: ubuntu-latest
+
+    container:
+      image: ghcr.io/void-linux/void-buildroot-glibc:latest
+      env:
+        PATH: '/usr/libexec/chroot-git:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:/usr/local/bin:/tmp/bin'
+
+    steps:
+      - name: Prepare container
+        run: |
+          # Sync and upgrade once, assume error comes from xbps update
+          /bin/echo -e '\x1b[32mSync and upgrade...\x1b[0m'
+          xbps-install -Syu || xbps-install -yu xbps
+          # Upgrade again (in case there was a xbps update)
+          /bin/echo -e '\x1b[32mUpgrade again...\x1b[0m'
+          xbps-install -yu
+
+      - name: Clone and checkout
+        uses: classabbyamp/treeless-checkout-action@v1
+      - name: Create hostrepo and prepare masterdir
+        run: |
+         ln -s "$(pwd)" /hostrepo
+         common/travis/prepare.sh
+         common/travis/fetch-xtools.sh
+      - name: Build zfs
+        run: |
+          /hostrepo/xbps-src -H "$HOME"/hostdir pkg zfs
+          rm $HOME/hostdir/binpkgs/zfs-dkms-*
+      - name: Build my-world
+        run: |
+          /hostrepo/xbps-src -H "$HOME"/hostdir pkg my-world
+      - name: Prepare for repository upload
+        run: |
+          /bin/echo -e '\x1b[32mRepository contents:\x1b[0m'
+          ls -lR $HOME/hostdir/binpkgs
+          /bin/echo -e '\x1b[32mMoving packages...\x1b[0m'
+          mv $HOME/hostdir/binpkgs /hostrepo/
+      - name: Upload repository
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-repo
+          path: binpkgs/
+          compression-level: 0
+          retention-days: 10
