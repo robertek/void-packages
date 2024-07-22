@@ -6,7 +6,7 @@ build_style=gnu-configure
 configure_args="--with-config=user --with-mounthelperdir=/usr/bin
  --with-udevdir=/usr/lib/udev --with-udevruledir=/usr/lib/udev/rules.d
  --with-dracutdir=/usr/lib/dracut --with-tirpc"
-hostmakedepends="dracut libtool pkg-config python3 automake"
+hostmakedepends="dracut libtool pkg-config python3 automake tar"
 makedepends="pam-devel zlib-devel libuuid-devel libblkid-devel libtirpc-devel attr-devel"
 depends="zfs-zed>=${version}_${revision} python3
  libzfs>=${version}_${revision}"
