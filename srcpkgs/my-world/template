@@ -1,5 +1,5 @@
 pkgname=my-world
-version=2.19
+version=2.20
 revision=1
 build_style=meta
 short_desc="my packages -- "
@@ -94,6 +94,7 @@ my-dev_package() {
 		github-cli
 		hunspell
 		hunspell-en_US
+		mosquitto-clients
 		patch
 		perf
 		strace
