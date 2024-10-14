@@ -1,5 +1,5 @@
 pkgname=my-world
-version=2.20
+version=2.21
 revision=1
 build_style=meta
 short_desc="my packages -- "
@@ -13,6 +13,7 @@ my-base_package() {
 		base-system
 		chrony
 		cronie
+		dinit
 		fwupd
 		linux-firmware-network
 		intel-video-accel
@@ -22,6 +23,7 @@ my-base_package() {
 		plymouth
 		socklog-void
 		tlp
+		turnstile
 		vim
 		void-repo-nonfree
 		vsv
@@ -50,6 +52,7 @@ my-tools_package() {
 	short_desc+="tools"
 	depends="
 		bat
+		bsdtar
 		delta
 		dmidecode
 		eza
@@ -101,6 +104,11 @@ my-dev_package() {
 		void-repo-debug
 		xtools
 		"
+
+	# android
+	depends+="
+		android-tools
+		android-udev-rules"
 
 	# rust ssl bindings
 	depends+=" openssl-devel pkg-config"
