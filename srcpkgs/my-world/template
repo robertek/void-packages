@@ -1,5 +1,5 @@
 pkgname=my-world
-version=2.21
+version=2.22
 revision=1
 build_style=meta
 short_desc="my packages -- "
@@ -28,6 +28,7 @@ my-base_package() {
 		void-repo-nonfree
 		vsv
 		zfs
+		zrepl-dsh2dsh
 		zstd
 		"
 
