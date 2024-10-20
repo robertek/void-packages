@@ -1,0 +1,28 @@
+# Template file for 'zrepl'
+pkgname=zrepl-dsh2dsh
+version=0.8.8
+revision=1
+build_style=go
+go_import_path=github.com/dsh2dsh/zrepl
+go_ldflags="-X github.com/zrepl/zrepl/version.zreplVersion=void-${version}_${revision}"
+depends="zfs"
+short_desc="One-stop ZFS backup & replication solution (dsh2dsh fork)"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="MIT"
+homepage="https://github.com/dsh2dsh/zrepl"
+distfiles="https://github.com/dsh2dsh/zrepl/archive/v${version}.tar.gz"
+checksum=b9fd62d456c03bfe41e742f826a9793a2969a26d2830916a8adcf8134ac277bc
+confilcts="zrepl"
+
+conf_files="/etc/zrepl/*"
+
+post_install() {
+	vmkdir etc/zrepl
+	vinstall ${FILESDIR}/zrepl.yml 644 etc/zrepl
+	vsconf ${FILESDIR}/zrepl.yml
+	vcopy internal/config/samples/* usr/share/examples/${pkgname}
+	vsconf dist/grafana/grafana-prometheus-zrepl.json
+
+	vlicense LICENSE
+	vsv zrepl
+}
