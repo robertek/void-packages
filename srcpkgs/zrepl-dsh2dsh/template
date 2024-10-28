@@ -1,17 +1,17 @@
 # Template file for 'zrepl'
 pkgname=zrepl-dsh2dsh
-version=0.8.8
+version=0.8.10
 revision=1
 build_style=go
 go_import_path=github.com/dsh2dsh/zrepl
 go_ldflags="-X github.com/zrepl/zrepl/version.zreplVersion=void-${version}_${revision}"
 depends="zfs"
-short_desc="One-stop ZFS backup & replication solution (dsh2dsh fork)"
+short_desc="One-stop ZFS backup & replication solution (dsh2dsh enhanced fork)"
 maintainer="Orphaned <orphan@voidlinux.org>"
 license="MIT"
 homepage="https://github.com/dsh2dsh/zrepl"
 distfiles="https://github.com/dsh2dsh/zrepl/archive/v${version}.tar.gz"
-checksum=b9fd62d456c03bfe41e742f826a9793a2969a26d2830916a8adcf8134ac277bc
+checksum=9aaaecd4dd431075dd64a4905c3c4f918b609fb14af88cfd0e868d68a9ea629a
 confilcts="zrepl"
 
 conf_files="/etc/zrepl/*"
